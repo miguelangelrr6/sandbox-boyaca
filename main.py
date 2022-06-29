@@ -32,7 +32,7 @@ m = st.markdown("""
                 """, unsafe_allow_html=True)
     
 #Dataset
-df = pd.read_csv("data/datasetcompletofinal.csv", sep = ";", encoding = "unicode_escape", parse_dates = ['Fecha_entrega','Fecha_creacion', 'Fecha_vencimiento'])
+df = pd.read_csv("datasetcompletofinal.csv", sep = ";", encoding = "unicode_escape", parse_dates = ['Fecha_entrega','Fecha_creacion', 'Fecha_vencimiento'])
 
 
 
