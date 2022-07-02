@@ -32,8 +32,8 @@ m = st.markdown("""
                 </style>
                 """, unsafe_allow_html=True)
              
-tiemponegativo = df[df["tiempo"] < 0]
-mask3 = df["tiempo"].isnull()
+tiemponegativo = df[df["Tiempo"] < 0]
+mask3 = df["Tiempo"].isnull()
 mask4 = df["Status"] == 1
 
 
