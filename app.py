@@ -99,7 +99,7 @@ def page2():
     import datetime as dt
     import numpy as np
     from PIL import Image
-    from app import df
+    
         
     #styles
     #st.set_page_config(layout="wide")
@@ -170,7 +170,6 @@ def page3():
     import pandas as pd
     import datetime as dt
     import numpy as np
-    from app import df
     from PIL import Image
     
     #styles
@@ -242,9 +241,8 @@ def page3():
 def page4():
     import streamlit as st
     import pandas as pd
-    from app import df
     from PIL import Image
-    from app import df
+
     
     # Page Settings
     #st.set_page_config(layout="wide")   
