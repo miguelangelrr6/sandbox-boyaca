@@ -121,6 +121,12 @@ def page2():
     # }
     #                 </style>
     #                 """, unsafe_allow_html=True)
+    
+    df = pd.read_csv("data/datasetcompletofinal.csv", sep = ";", encoding = "utf-8", parse_dates = ['Fecha_entrega','Fecha_creacion', 'Fecha_vencimiento'])
+    df.drop("Unnamed: 0", axis = 1, inplace = True)
+    df.columns = ["Ciudadano", "Pasaporte", "Status", "Entrega", "Paquete", "Serie", "Guia", "Creacion", "Vencimiento"]
+    df = df[["Ciudadano", "Pasaporte", "Status", "Paquete", "Serie", "Guia", "Creacion", "Entrega", "Vencimiento"]]
+    
     #Variables
     a_date = dt.datetime(2010,1,1)
     b_date = dt.datetime(2023,1,1)
@@ -187,6 +193,11 @@ def page3():
     # }
     #                 </style>
     #                 """, unsafe_allow_html=True)
+    
+    df = pd.read_csv("data/datasetcompletofinal.csv", sep = ";", encoding = "utf-8", parse_dates = ['Fecha_entrega','Fecha_creacion', 'Fecha_vencimiento'])
+    df.drop("Unnamed: 0", axis = 1, inplace = True)
+    df.columns = ["Ciudadano", "Pasaporte", "Status", "Entrega", "Paquete", "Serie", "Guia", "Creacion", "Vencimiento"]
+    df = df[["Ciudadano", "Pasaporte", "Status", "Paquete", "Serie", "Guia", "Creacion", "Entrega", "Vencimiento"]]
     
     #Variables
     c_date = dt.datetime(2010,1,1)
@@ -255,7 +266,15 @@ def page4():
     # }
     #                 </style>
     #                 """, unsafe_allow_html=True)
+    
+    df = pd.read_csv("data/datasetcompletofinal.csv", sep = ";", encoding = "utf-8", parse_dates = ['Fecha_entrega','Fecha_creacion', 'Fecha_vencimiento'])
+    df.drop("Unnamed: 0", axis = 1, inplace = True)
+    df.columns = ["Ciudadano", "Pasaporte", "Status", "Entrega", "Paquete", "Serie", "Guia", "Creacion", "Vencimiento"]
+    df = df[["Ciudadano", "Pasaporte", "Status", "Paquete", "Serie", "Guia", "Creacion", "Entrega", "Vencimiento"]]
+    
+    
     # Side Bar
+    
     # Variables
     range_tiempo = df["Tiempo"].dropna().sort_values()
     range_tiempo_low = range_tiempo.min()
