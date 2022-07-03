@@ -69,7 +69,7 @@ def main_page():
     #np.round(deltapor, decimals=2)
     
     tiempo = df["Entrega"] - df["Creacion"]
-    df["Tiempo"] = tiempo.dt.days
+    df["tiempo"] = tiempo.dt.days
         
     # Row A
     a1, a2, a3 = st.columns(3)
@@ -201,8 +201,8 @@ def page3():
     #Variables
     c_date = dt.datetime(2010,1,1)
     d_date = dt.datetime(2023,1,1)
-    tiemponegativo = df[df["Tiempo"] < 0]
-    mask3 = df["Tiempo"].isnull()
+    tiemponegativo = df[df["tiempo"] < 0]
+    mask3 = df["tiempo"].isnull()
     mask4 = df["Status"] == 1
     
     
@@ -274,7 +274,7 @@ def page4():
     # Side Bar
     
     # Variables
-    range_tiempo = df["Tiempo"].dropna().sort_values()
+    range_tiempo = df["tiempo"].dropna().sort_values()
     range_tiempo_low = range_tiempo.min()
     range_tiempo_high = range_tiempo.max()
     mask_ciudadano = "None"
@@ -319,9 +319,9 @@ def page4():
     #     mask_status_filter = df["Status"].notnull()
     
     
-    mask_time_low = df["Tiempo"] > time_filter_initial
-    mask_time_high = df["Tiempo"] < time_filter_end
-    mask_time_null = df["Tiempo"].isnull()
+    mask_time_low = df["tiempo"] > time_filter_initial
+    mask_time_high = df["tiempo"] < time_filter_end
+    mask_time_null = df["tiempo"].isnull()
     
     df_busqueda = df[(mask_time_low & mask_time_high) | mask_time_null]
     # Row A
