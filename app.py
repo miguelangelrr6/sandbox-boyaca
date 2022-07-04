@@ -49,8 +49,8 @@ def main_page():
     # Dataset
     df = pd.read_csv("data/datasetcompletofinal.csv", sep = ";", encoding = "utf-8", parse_dates = ['Fecha_entrega','Fecha_creacion', 'Fecha_vencimiento'])
     df.drop("Unnamed: 0", axis = 1, inplace = True)
-    df.columns = ["Ciudadano", "Pasaporte", "Status", "Entrega", "Paquete", "Serie", "Guia", "Creacion", "Vencimiento"]
-    df = df[["Ciudadano", "Pasaporte", "Status", "Paquete", "Serie", "Guia", "Creacion", "Entrega", "Vencimiento"]]
+    df.columns = ["Ciudadano", "Pasaporte", "Status", "Entrega", "Paquete", "Serie", "Guia", "Creacion", "Vencimiento", "Tiempo"]
+    df = df[["Ciudadano", "Pasaporte", "Status", "Paquete", "Serie", "Guia", "Creacion", "Entrega", "Vencimiento", "Tiempo"]]
     
     df_pqr = pd.read_csv("data/ps_PQRSD.csv", sep = ';',
                     encoding= 'unicode_escape',
@@ -68,8 +68,8 @@ def main_page():
     deltapor = delta*100
     #np.round(deltapor, decimals=2)
     
-    tiempo = df["Entrega"] - df["Creacion"]
-    df["tiempo"] = tiempo.dt.days
+    #tiempo = df["Entrega"] - df["Creacion"]
+    #df["Tiempo"] = tiempo.dt.days
         
     # Row A
     a1, a2, a3 = st.columns(3)
@@ -201,8 +201,8 @@ def page3():
     #Variables
     c_date = dt.datetime(2010,1,1)
     d_date = dt.datetime(2023,1,1)
-    tiemponegativo = df[df["tiempo"] < 0]
-    mask3 = df["tiempo"].isnull()
+    tiemponegativo = df[df["Tiempo"] < 0]
+    mask3 = df["Tiempo"].isnull()
     mask4 = df["Status"] == 1
     
     
@@ -274,7 +274,7 @@ def page4():
     # Side Bar
     
     # Variables
-    range_tiempo = df["tiempo"].dropna().sort_values()
+    range_tiempo = df["Tiempo"].dropna().sort_values()
     range_tiempo_low = range_tiempo.min()
     range_tiempo_high = range_tiempo.max()
     mask_ciudadano = "None"
@@ -319,9 +319,9 @@ def page4():
     #     mask_status_filter = df["Status"].notnull()
     
     
-    mask_time_low = df["tiempo"] > time_filter_initial
-    mask_time_high = df["tiempo"] < time_filter_end
-    mask_time_null = df["tiempo"].isnull()
+    mask_time_low = df["Tiempo"] > time_filter_initial
+    mask_time_high = df["Tiempo"] < time_filter_end
+    mask_time_null = df["Tiempo"].isnull()
     
     df_busqueda = df[(mask_time_low & mask_time_high) | mask_time_null]
     # Row A
