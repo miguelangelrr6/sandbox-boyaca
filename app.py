@@ -49,8 +49,8 @@ def main_page():
     # Dataset
     df = pd.read_csv("data/datasetcompletofinal.csv", sep = ";", encoding = "utf-8", parse_dates = ['Fecha_entrega','Fecha_creacion', 'Fecha_vencimiento'])
     df.drop("Unnamed: 0", axis = 1, inplace = True)
-    df.columns = ["Ciudadano", "Pasaporte", "Status", "Entrega", "Paquete", "Serie", "Guia", "Creacion", "Vencimiento", "Tiempo"]
-    df = df[["Ciudadano", "Pasaporte", "Status", "Paquete", "Serie", "Guia", "Creacion", "Entrega", "Vencimiento", "Tiempo"]]
+    df.columns = ["Ciudadano", "Pasaporte", "Status", "Entrega", "Paquete", "Serie", "Guia", "Creacion", "Vencimiento"]
+    df = df[["Ciudadano", "Pasaporte", "Status", "Paquete", "Serie", "Guia", "Creacion", "Entrega", "Vencimiento"]]
     
     df_pqr = pd.read_csv("data/ps_PQRSD.csv", sep = ';',
                     encoding= 'unicode_escape',
@@ -68,8 +68,8 @@ def main_page():
     deltapor = delta*100
     #np.round(deltapor, decimals=2)
     
-    #tiempo = df["Entrega"] - df["Creacion"]
-    #df["Tiempo"] = tiempo.dt.days
+    tiempo = df["Entrega"] - df["Creacion"]
+    df["Tiempo"] = tiempo.dt.days
         
     # Row A
     a1, a2, a3 = st.columns(3)
@@ -126,7 +126,8 @@ def page2():
     df.drop("Unnamed: 0", axis = 1, inplace = True)
     df.columns = ["Ciudadano", "Pasaporte", "Status", "Entrega", "Paquete", "Serie", "Guia", "Creacion", "Vencimiento"]
     df = df[["Ciudadano", "Pasaporte", "Status", "Paquete", "Serie", "Guia", "Creacion", "Entrega", "Vencimiento"]]
-    
+    tiempo = df["Entrega"] - df["Creacion"]
+    df["Tiempo"] = tiempo.dt.days
     #Variables
     a_date = dt.datetime(2010,1,1)
     b_date = dt.datetime(2023,1,1)
@@ -197,7 +198,8 @@ def page3():
     df.drop("Unnamed: 0", axis = 1, inplace = True)
     df.columns = ["Ciudadano", "Pasaporte", "Status", "Entrega", "Paquete", "Serie", "Guia", "Creacion", "Vencimiento"]
     df = df[["Ciudadano", "Pasaporte", "Status", "Paquete", "Serie", "Guia", "Creacion", "Entrega", "Vencimiento"]]
-    
+    tiempo = df["Entrega"] - df["Creacion"]
+    df["Tiempo"] = tiempo.dt.days
     #Variables
     c_date = dt.datetime(2010,1,1)
     d_date = dt.datetime(2023,1,1)
@@ -269,7 +271,8 @@ def page4():
     df.drop("Unnamed: 0", axis = 1, inplace = True)
     df.columns = ["Ciudadano", "Pasaporte", "Status", "Entrega", "Paquete", "Serie", "Guia", "Creacion", "Vencimiento"]
     df = df[["Ciudadano", "Pasaporte", "Status", "Paquete", "Serie", "Guia", "Creacion", "Entrega", "Vencimiento"]]
-    
+    tiempo = df["Entrega"] - df["Creacion"]
+    df["Tiempo"] = tiempo.dt.days
     
     # Side Bar
     
