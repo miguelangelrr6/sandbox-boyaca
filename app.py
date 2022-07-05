@@ -344,7 +344,15 @@ def page5():
     import pandas as pd
     import streamlit as st
     import matplotlib.pyplot as plt
+    from bokeh.models.widgets import Div
     st.markdown("# PQRS :telephone_receiver:")
+    
+    if st.sidebar.button('Análisis Avanzado PQRS'):
+        js = "window.open('https://santi-ort-team-113-soc-side-gob-mtwvhb.streamlitapp.com/')"  # New tab or window
+        js = "window.location.href = 'https://santi-ort-team-113-soc-side-gob-mtwvhb.streamlitapp.com/'"  # Current tab
+        html = '<img src onerror="{}">'.format(js)
+        div = Div(text=html)
+        st.bokeh_chart(div)
     
     # Dataset
     df_pqr = pd.read_csv("data/ps_PQRSD.csv", sep = ';',
