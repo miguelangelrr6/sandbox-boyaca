@@ -59,6 +59,9 @@ def main_page():
                               "Fecha_creacion","Dependencia","Origen","Usuario_creador","Expediente_asociado"],
                      parse_dates = ['Fecha_creacion'])
     
+    #Sidebar
+    st.sidebar.markdown("Bienvenido al PANEL DE CONTROL de Gobernación de Boyacá, en este dashboard se podrán ver los principales indicadores de la información recopilada.")
+    st.sidebar.markdown("Para acceder a las demás visualizaciones, utilice el menú de la parte superior para seleccionar la deseada.")
     #Variables
     today = pd.to_datetime("today")
     thisyear = today.date().year
@@ -135,6 +138,7 @@ def page2():
     #Side Bar
     # st.sidebar.markdown("## Panel de Control")
     # st.sidebar.markdown("Puedes **cambiar** los valores de los *gráficos*")
+    st.sidebar.markdown("Bienvenido a la ventana de PASAPORTES, aquí se mostrará la entrega de pasaportes por mes y año. Utilice los filtros de la parte inferior para definir un rango de fechas personalizado")
     st.sidebar.markdown("### Rango de Fechas")
     
     #min_date = dt.datetime(2010,1,1)
@@ -211,6 +215,8 @@ def page3():
     #Side Bar
     # st.sidebar.markdown("## Panel de Control")
     # st.sidebar.markdown("Puedes **cambiar** los valores de los *gráficos*")
+    st.sidebar.markdown("Bienvenido a la ventana de INCONSISTENCIAS, en esta hemos consolidado información que POSIBLEMENTE está erronea y por lo tanto recomendamos revisarla para tener la mayor cantidad de datos correctos.")
+    st.sidebar.markdown("Puede utilizar el filtro que está a continuación, para escoger un rango de tiempo menor")
     st.sidebar.markdown("### Rango de Fechas")
     
     #min_date = dt.datetime(2010,1,1)
@@ -229,14 +235,15 @@ def page3():
     
     graficas = st.container()
     with graficas:
-        st.subheader('Pasaportes con tiempo negativo')
+        st.subheader('Pasaportes con tiempo negativo (Entregados antes de ser creados/solicitados)')
         graph_pasaportes_negativos = pd.DataFrame(tiemponegativo[mask_fc1 & mask_fc2]["Creacion"].dt.year.value_counts().sort_index())
         st.bar_chart(graph_pasaportes_negativos)
         
     tabla = st.container()
     with tabla:
+        st.subheader('Tabla de Pasaportes con tiempo negativo (Entregados antes de ser creados/solicitados)')
         tiemponegativo[mask_fc1 & mask_fc2]
-        
+        st.subheader('Pasaportes entregados, sin un registro de fecha de entrega')
         df[mask3 & mask4]
 
 #####################################BUSQUEDA PAGE
@@ -275,7 +282,7 @@ def page4():
     df["Tiempo"] = tiempo.dt.days
     
     # Side Bar
-    
+    st.sidebar.markdown("Bienvenido a la ventana de BÚSQUEDA, en esta se podrá buscar información específica de los pasaportes.")
     # Variables
     range_tiempo = df["Tiempo"].dropna().sort_values()
     range_tiempo_low = range_tiempo.min()
@@ -293,7 +300,7 @@ def page4():
          'Selecciona el rango de tiempo',
          options=range_tiempo,
          value=(range_tiempo_low, range_tiempo_high))
-    st.sidebar.write('Se va a filtrar desde el tiempo de entrega', time_filter_initial, ' hasta', time_filter_end, " días")
+    # st.sidebar.write('Se va a filtrar desde el tiempo de entrega', time_filter_initial, ' hasta', time_filter_end, " días")
     
     # mask_ciudadano = df["Ciudadano"] == ciudadano_filter
     # mask_pasaporte = df["Pasaporte"] == pasaporte_filter
@@ -333,6 +340,7 @@ def page4():
     a2.metric("Pasaportes Entregados", len(df[df["Status"]==1]), None)
     a3.metric("Pasaportes Sin Entregar", len(df[df["Status"]==0]), None)
     
+    st.subheader('Tabla de pasaportes acorde a los filtros configurados')
     tabla = st.container()
     with tabla:
         if status_filter == None:
@@ -346,7 +354,8 @@ def page5():
     import matplotlib.pyplot as plt
     from bokeh.models.widgets import Div
     st.markdown("# PQRS :telephone_receiver:")
-    
+    st.sidebar.markdown("Bienvenido a la ventana de PQRS, aquí se podrá identificar las principales estadísticas a partir de las peticiones, quejas, solicitudes o reclamos")
+    st.sidebar.markdown("También hemos creado una zona de analíticas avanzadas a partir de la misma información, para acceder a este, haga clic en el siguiente botón.")
     if st.sidebar.button('Análisis Avanzado PQRS'):
         js = "window.open('https://santi-ort-team-113-soc-side-gob-mtwvhb.streamlitapp.com/')"  # New tab or window
         js = "window.location.href = 'https://santi-ort-team-113-soc-side-gob-mtwvhb.streamlitapp.com/'"  # Current tab
@@ -381,21 +390,24 @@ def page5():
     a3.metric("Solicitud de Información", df_pqr["Expediente_asociado"].value_counts()["76.5. Solicitudes de  Información"], None)
     
     #Row B
-    graph1, graph2 = st.columns(2)
+    st.subheader('Cantidad de tipo de expedientes creado por los ciudadanos')
+    graph1 = st.container()
     with graph1:
-        st.pyplot(fig1)
-    with graph2:
-        df_pqr_count
+        st.bar_chart(data = df_pqr["Expediente_asociado"].value_counts().sort_values(ascending = True), width=0, height=0, use_container_width=True)
+
         
     # Row C
+    st.subheader('Generación de PQRS a lo largo del tiempo')
     graph3 = st.container()
     with graph3:
         st.line_chart(data = df_pqr["Fecha_creacion"].value_counts().sort_index(), width=0, height=0, use_container_width=True)
     # Row D
     graph4, graph5 = st.columns(2)
     with graph4:
+        st.subheader('Expedientes archivados')
         st.bar_chart(data = df_pqr["Archivado"].value_counts(), width=0, height=0, use_container_width=True)
     with graph5: 
+        st.subheader('Cantidad de tipo documental registrados')
         st.bar_chart(data = df_pqr["Tipo_Documental"].value_counts(), width=0, height=475, use_container_width=True)
 
 #####################################INTRO
